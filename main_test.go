@@ -22,22 +22,22 @@ func TestTimetravel(t *testing.T) {
 	if err != nil {
 		t.Fatalf("%s", err)
 	}
+	// let's run timetravel
 	_, err = Timetravel(os.TempDir())
 	if err != nil {
 		t.Fatalf("%s", err)
 
 	}
 	info, err := file.Stat()
+	if err != nil {
+		t.Errorf("%s", err)
+	}
+	//check if timestamp stil in the future
+	if info.ModTime().After(time.Now()) {
+		t.Errorf("Timestamp in the future %s", info.ModTime())
+	}
 
-	log.Printf("%s", info.ModTime())
-	defer file.Close()
-	// var paths []string
-	// for path := range m {
-	// 	paths = append(paths, path)
-	// }
-	// sort.Strings(paths)
-	// for _, path := range paths {
-	// 	log.Printf("%s \n", path)
-	// }
+	//clean up
 	defer os.Remove(file.Name())
+	defer file.Close()
 }
