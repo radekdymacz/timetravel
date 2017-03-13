@@ -17,7 +17,7 @@ func TestTimetravel(t *testing.T) {
 	}
 	// Chtimes to have timestamp in future
 	fd := time.Now().Add(time.Hour * 24 * 3000)
-	log.Printf("Change timestamps 3 days ins future for %s", file.Name())
+	log.Printf("Travel into the future 3000 days for %s", file.Name())
 	err = os.Chtimes(file.Name(), fd, fd)
 	if err != nil {
 		t.Fatalf("%s", err)

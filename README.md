@@ -1,4 +1,4 @@
-# Timetravel 
+# Timetravel  [![CircleCI](https://circleci.com/gh/radekdymacz/timetravel.svg?style=svg)](https://circleci.com/gh/radekdymacz/timetravel)
 
 Simple tool to travel in time.
 Batch change modified time of files in given volume/folder if it's in the future.
