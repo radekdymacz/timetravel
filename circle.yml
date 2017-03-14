@@ -4,5 +4,5 @@ deployment:
     commands:
         - go get github.com/mitchellh/gox
         - go get github.com/tcnksm/ghr
-        - gox -output "dist/ncd_{{.OS}}_{{.Arch}}"
+        - gox -output "dist/timetravel_{{.OS}}_{{.Arch}}"
         - ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME --replace `git describe --tags` dist/
