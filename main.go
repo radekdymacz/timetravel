@@ -25,18 +25,21 @@ func walkFiles(done <-chan struct{}, root string) (<-chan string, <-chan error) 
 		// No select needed for this send, since errc is buffered.
 		errc <- filepath.Walk(root, func(path string, info os.FileInfo, err error) error { // HL
 			if err != nil {
-				return err
+				log.Printf("%s", err)
+				//continue after error
+				return nil
 			}
 			if !info.Mode().IsRegular() {
+				//log.Printf("%s ", info.Mode().IsRegular)
 				return nil
 			}
 			// Return anly files with  modified time in the future
 			if !info.ModTime().After(time.Now()) {
-				//log.Printf("Skipping %s", path)
+				log.Printf("Timestamp OK %s", path)
 				return nil
 			}
 
-			log.Printf("%s %s", path, info.ModTime())
+			log.Printf("Found file with wrong timestamp  %s %s", path, info.ModTime())
 			select {
 			case paths <- path: // HL
 			case <-done: // HL
