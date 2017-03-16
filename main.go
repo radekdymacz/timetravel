@@ -35,7 +35,7 @@ func walkFiles(done <-chan struct{}, root string) (<-chan string, <-chan error) 
 			}
 			// Return anly files with  modified time in the future
 			if !info.ModTime().After(time.Now()) {
-				log.Printf("Timestamp OK %s", path)
+				//log.Printf("Timestamp OK %s", path)
 				return nil
 			}
 
@@ -72,6 +72,9 @@ func modTime(done <-chan struct{}, paths <-chan string, c chan<- result) {
 
 // Timetravel reads all the files in the file tree rooted at root and start digesters/time travel machines to fix metadata.
 func Timetravel(root string) (map[string]string, error) {
+	//set log stdout
+
+	log.SetOutput(os.Stdout)
 	// Timetravel closes the done channel when it returns; it may do so before
 	// receiving all the values from c and errc.
 	done := make(chan struct{})
